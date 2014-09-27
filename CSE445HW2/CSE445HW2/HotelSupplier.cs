@@ -27,6 +27,9 @@ namespace CSE445HW2
         int price;
         int supplierID;
 
+        //counts the number of price cuts that have been made
+        int numPriceCuts;
+
         //delegate and event for this class
         private delegate void PriceCutEvent(int id, int newPrice);
         private event PriceCutEvent priceHasBeenCut;
@@ -34,6 +37,7 @@ namespace CSE445HW2
         public HotelSupplier(int supplierID)
         {
             this.supplierID = supplierID;
+            numPriceCuts = 0;
 
             //get first random number
             price = numGenerator.Next(MIN_PRICE, MAX_PRICE);
@@ -42,7 +46,7 @@ namespace CSE445HW2
 
         public void runHotelSupplierOperation()
         {
-            for (int i = 0; i < NUM_ITERATIONS; i++)
+            while (numPriceCuts != 10)
             {
                 //So prices are not updated too quickly
                 Thread.Sleep(500);
@@ -50,6 +54,7 @@ namespace CSE445HW2
                 //update the price with a random price between the lower and upper prices
                 setPrice(getNewPrice());
             }
+            
         }
 
         private void setPrice(int newPrice)
@@ -63,6 +68,9 @@ namespace CSE445HW2
             {
                 //notify all of the subscribers that hotel #{supplierID} has cut their prices to ${newPrice}
                 priceHasBeenCut(supplierID, newPrice);
+
+                //keep track of the number of price cuts
+                numPriceCuts++;
             }
         }
         
