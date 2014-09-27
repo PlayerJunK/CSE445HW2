@@ -30,9 +30,16 @@ namespace CSE445HW2
             //Order newOrder = new Order(agencyID, supplierID, desiredNumRoomsToBuy, newPrice, creditCardNumber);
 
             //just for testing purposes
-            if(desiredNumRoomsToBuy != 0)
-                Console.WriteLine("Agency #{0} purchases {1} rooms from HotelSupplier #{2} at ${3} each", agencyID, desiredNumRoomsToBuy, supplierID, newPrice);
-
+            if (desiredNumRoomsToBuy != 0)
+            {
+                //Console.WriteLine("Agency #{0} purchases {1} rooms from HotelSupplier #{2} at ${3} each", agencyID, desiredNumRoomsToBuy, supplierID, newPrice);
+                Order newOrder = new Order(this.agencyID, supplierID, desiredNumRoomsToBuy, newPrice, getCreditCardNumber());
+                
+                //for testing purposes
+                newOrder.setValidOrder(true);
+                Console.WriteLine(newOrder.ToString());
+            }
+                
             
         }
 
@@ -97,6 +104,17 @@ namespace CSE445HW2
 
             //return the calculate number of results
             return result;
+
+        }
+
+
+        //uses the bank service to register for a credit card number and send it.
+        //NOT YET IMPLMENTED
+        private long getCreditCardNumber(){
+
+
+            
+            return 0;
 
         }
     }
