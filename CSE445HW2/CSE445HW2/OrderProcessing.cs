@@ -8,8 +8,8 @@ namespace CSE445HW2
 {
     public static class OrderProcessing
     {
-        private static MultiCellBuffer processedOrders;
-        private static MultiCellBuffer unProcessedOrders;
+        private static MultiCellBuffer processedOrders = new MultiCellBuffer();
+        private static MultiCellBuffer unProcessedOrders = new MultiCellBuffer();
 
 
         //hotel suppliers will use this once they have processed the order.
@@ -25,7 +25,7 @@ namespace CSE445HW2
 
         public static Order getProcessedOrderForAgencyID(int travelAgencyID)
         {
-            return (Order)processedOrder.getObjectWithID(travelAgencyID);
+            return (Order)processedOrders.getObjectWithID(travelAgencyID);
         }
 
 
@@ -43,6 +43,7 @@ namespace CSE445HW2
         {
             return (Order)unProcessedOrders.getObjectWithID(hotelSupplierID);
         }
+
 
 
     }
