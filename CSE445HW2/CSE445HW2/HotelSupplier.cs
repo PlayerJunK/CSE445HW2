@@ -18,8 +18,8 @@ namespace CSE445HW2
         public const int MAX_PRICE = 200;
         public const int MIN_PRICE = 100;
 
-        //how many times the price will be changed.
-        const int NUM_ITERATIONS = 50;
+        //how many times the price will be cut.
+        const int NUM_PRICE_CUTS = 10;
 
         //random number generator that will be used for all HotelSupplier instances
         static Random numGenerator = new Random();
@@ -46,7 +46,7 @@ namespace CSE445HW2
 
         public void runHotelSupplierOperation()
         {
-            while (numPriceCuts != 10)
+            while (numPriceCuts != NUM_PRICE_CUTS)
             {
                 //So prices are not updated too quickly
                 Thread.Sleep(500);

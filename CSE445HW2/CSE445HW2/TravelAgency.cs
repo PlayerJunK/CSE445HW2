@@ -8,9 +8,12 @@ namespace CSE445HW2
 {
     public class TravelAgency
     {
+        //variables 
         const int MULTIPLIER_MIN = 1;
         const int MULTIPLIER_MAX = 3;
         static Random numGenerator = new Random();
+
+
         int agencyID;
         public TravelAgency(int agencyID)
         {
