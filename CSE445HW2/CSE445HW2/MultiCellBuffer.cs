@@ -13,8 +13,7 @@ namespace CSE445HW2
         private System.Object myLock = new System.Object();
         
         private Order [] orderBuffer = new Order [3];
-        int semaphore = 0;
-        bool writable = true;
+        static int semaphore = 0;
         public MultiCellBuffer()
         {
             orderBuffer[0] = null;
@@ -22,7 +21,8 @@ namespace CSE445HW2
             orderBuffer[2] = null;
         }
 
-        //Lock the method so only one thread will be able to access. May need to be below while statement.
+        /*Lock the method so only one thread will be able to access. If there are already 3 orders in the buffer,
+        the thread will wait until an order has been removed and is notified (PulseAll).*/
         public void setOneCell(Order o)
         {
             lock (myLock)
@@ -37,10 +37,12 @@ namespace CSE445HW2
                 }
                 orderBuffer[semaphore] = o;
                 semaphore++;
+                Monitor.PulseAll(this);
             }
         }
 
-        //Lock the method so only one thread will be able to access. May need to be below while statement.
+        /*Lock the method so only one thread will be able to access. If there are no orders in the buffer,
+        the thread will wait until an order has been entered and is notified (PulseAll).*/
         public Order getOneCell()
         {
             lock (myLock)
