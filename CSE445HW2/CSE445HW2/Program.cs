@@ -10,6 +10,7 @@ namespace CSE445HW2
     {
         static void Main(string[] args)
         {
+            int test = 0;
         }
     }
 }
