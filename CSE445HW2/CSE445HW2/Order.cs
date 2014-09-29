@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace CSE445HW2
 {
+    [DataC]
     public class Order
     {
         int pricePerRoom;
@@ -37,8 +38,7 @@ namespace CSE445HW2
             this.validOrder = validOrder;
         }
 
-        @Override
-        public string ToString()
+        public override string ToString()
         {
             string result = "Travel Agency " + this.travelAgencyID + " bought " + this.numRooms + " rooms from Hotel Supplier " +
                 this.hotelSupplierID + " at $" + this.pricePerRoom + " for a total of $" + totalPrice();

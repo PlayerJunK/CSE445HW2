@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace CSE445HW2
@@ -19,6 +20,12 @@ namespace CSE445HW2
         {
             this.agencyID = agencyID;
 
+            //subscribe the travel agency to the OrderProcessing so it can be informed
+            //when an order has been reviewed by the hotel supplier
+            //Without this, the travel agency would never know when their order had been reviewed
+            //the travel agency has to confirm the order when it is returned.
+            OrderProcessing.callMethodWhenAnOrderIsProcessed(processedOrderAddedToBuffer);
+
         }
 
 
@@ -35,16 +42,46 @@ namespace CSE445HW2
             //just for testing purposes
             if (desiredNumRoomsToBuy != 0)
             {
-                //Console.WriteLine("Agency #{0} purchases {1} rooms from HotelSupplier #{2} at ${3} each", agencyID, desiredNumRoomsToBuy, supplierID, newPrice);
                 Order newOrder = new Order(this.agencyID, supplierID, desiredNumRoomsToBuy, newPrice, getCreditCardNumber());
-                
-                //for testing purposes
-                newOrder.setValidOrder(true);
-                Console.WriteLine(newOrder.ToString());
+
+
+                //place the new order
+                placeOrder(newOrder);
             }
                 
             
         }
+
+
+
+
+        public void processedOrderAddedToBuffer(int destinationTravelAgency)
+        {
+            //the order that was added is intended for this travel agency
+            if (destinationTravelAgency == this.agencyID)
+            {
+                //get the encrypted order from the order processor
+                string encryptedOrderToConfirm = OrderProcessing.getProcessedOrderForAgencyID(this.agencyID);
+
+                //decrypt the string and assign it to an Order Object
+                Order newOrderToProcess = Decoder.decodeOrder(encryptedOrderToConfirm);
+
+
+                //print or store a confirmation of the order
+                confirmOrder(newOrderToProcess);
+
+            }
+        }
+
+
+
+        //this method is called after the order has been sent to the hotel supplier and sent back
+        private void confirmOrder(Order orderToConfirm)
+        {
+            //handle the confirmation from the hotel supplier
+            Console.WriteLine(orderToConfirm);
+        }
+
 
 
         //calculates the number of rooms to buy by weighting the current price of rooms versus the 
@@ -62,7 +99,7 @@ namespace CSE445HW2
             {
                 result = 0;
             }
-                //else purchase an amount proportional to the deal that is available
+            //else purchase an amount proportional to the deal that is available
             else
             {
 
@@ -70,16 +107,16 @@ namespace CSE445HW2
                 //purchases
 
                 double randomConstantMultiplier = 2 * numGenerator.NextDouble();
-                
+
                 //difference in current price of hotel room vs average price of hotel room
                 double priceDifference = avgHotelPrice - currentPrice;
-                double percentageOff = 100 * priceDifference/avgHotelPrice;
+                double percentageOff = 100 * priceDifference / avgHotelPrice;
 
                 double randomizedPurchaseFactor = percentageOff * randomConstantMultiplier;
 
                 //case where the current price is slightly more than the average price
                 //(100% of avgPrice < currentPrice <= 110% of avgPrice)
- 
+
                 if (randomizedPurchaseFactor < 0)
                 {
                     //double form of result that needs to be rounded
@@ -113,11 +150,27 @@ namespace CSE445HW2
 
         //uses the bank service to register for a credit card number and send it.
         //NOT YET IMPLMENTED
-        private long getCreditCardNumber(){
+        private long getCreditCardNumber()
+        {
 
 
-            
+
             return 0;
+
+        }
+
+
+        //Takes an order decrypts it and creates a new thread to submit the order
+        //to the order processing object
+        private void placeOrder(Order orderToPlace){
+
+            //encrypt order the order to string
+            string encryptedOrder = Encoder.Encrypt(orderToPlace);
+            
+            //create thread to place order
+            Thread threadToPlaceOrder = new Thread(() => OrderProcessing.addUnProcessedOrder(orderToPlace.HotelSupplierID, encryptedOrder));
+
+            threadToPlaceOrder.Start();
 
         }
     }

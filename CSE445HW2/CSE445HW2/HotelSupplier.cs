@@ -42,6 +42,10 @@ namespace CSE445HW2
             //get first random number
             price = numGenerator.Next(MIN_PRICE, MAX_PRICE);
 
+
+            //subscribe to the orderprocessing object to know 
+            //when an unprocessed order has been submitted
+            OrderProcessing.callMethodWhenAnNewOrderIsSubmitted(unProcessedOrderAddedToBuffer);
         }
 
         public void runHotelSupplierOperation()
@@ -90,6 +94,52 @@ namespace CSE445HW2
         private int getNewPrice()
         {
             return numGenerator.Next(MIN_PRICE, MAX_PRICE);
+        }
+
+
+        //method that will be called when an unprocessed order is added to the orderprocessing
+        public void unProcessedOrderAddedToBuffer(int destinationSupplierID)
+        {
+            //the order that was added is intended for this supplier
+            if (destinationSupplierID == this.supplierID)
+            {
+                //get the encrypted order from the order processor
+                string encryptedOrderToProcess = OrderProcessing.getUnProcessedOrder(this.supplierID);
+
+                //decrypt the string and assign it to an Order Object
+                Order newOrderToProcess = Decoder.decodeOrder(encryptedOrderToProcess);
+
+                //validate the order
+                Boolean orderIsValid = validateOrder(newOrderToProcess);
+
+                //if the order is valid
+                if (orderIsValid)
+                {
+                    //set order as a valid order
+                    newOrderToProcess.setValidOrder(true);
+                }
+
+                //create new thread and send to order processed as processed order
+                //this occurs regardless of whether or not the order was validated
+
+                //this thread is just creating a new thread to run the method after the =>
+                Thread threadToProcessOrder = new Thread(() => OrderProcessing.addProcessedOrder(this.supplierID, Encoder.encodeOrder(newOrderToProcess)));
+
+                //start thread
+                threadToProcessOrder.Start();
+
+            }
+        }
+
+
+        //verifies the validity of an order by checking with the bank.
+        private Boolean validateOrder(Order orderToValidate)
+        {
+            //check with the bank object to see if the credit card is registered
+            //return Bank.validateCreditCard(orderToValidate.CreditCard);
+
+
+            return true;
         }
     }
 }
