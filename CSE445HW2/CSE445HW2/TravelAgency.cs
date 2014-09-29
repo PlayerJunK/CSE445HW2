@@ -4,7 +4,6 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-
 namespace CSE445HW2
 {
     public class TravelAgency
@@ -64,7 +63,7 @@ namespace CSE445HW2
                 string encryptedOrderToConfirm = OrderProcessing.getProcessedOrderForAgencyID(this.agencyID);
 
                 //decrypt the string and assign it to an Order Object
-                Order newOrderToProcess = Decoder.decodeOrder(encryptedOrderToConfirm);
+                Order newOrderToProcess =  Decoder.Decrypt(encryptedOrderToConfirm);
 
 
                 //print or store a confirmation of the order
@@ -150,12 +149,12 @@ namespace CSE445HW2
 
         //uses the bank service to register for a credit card number and send it.
         //NOT YET IMPLMENTED
-        private long getCreditCardNumber()
+        private int getCreditCardNumber()
         {
 
 
 
-            return 0;
+            return Bank.applyforCreditCard();
 
         }
 
