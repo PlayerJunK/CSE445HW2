@@ -1,0 +1,7 @@
+C:\Users\John\Desktop\CSE445 Workspace\CSE445HW2\CSE445HW2\Hotel Supplier Unit Tests\bin\Debug\Hotel Supplier Unit Tests.dll
+C:\Users\John\Desktop\CSE445 Workspace\CSE445HW2\CSE445HW2\Hotel Supplier Unit Tests\bin\Debug\Hotel Supplier Unit Tests.pdb
+C:\Users\John\Desktop\CSE445 Workspace\CSE445HW2\CSE445HW2\Hotel Supplier Unit Tests\bin\Debug\CSE445HW2.exe
+C:\Users\John\Desktop\CSE445 Workspace\CSE445HW2\CSE445HW2\Hotel Supplier Unit Tests\bin\Debug\CSE445HW2.pdb
+C:\Users\John\Desktop\CSE445 Workspace\CSE445HW2\CSE445HW2\Hotel Supplier Unit Tests\obj\Debug\Hotel Supplier Unit Tests.csprojResolveAssemblyReference.cache
+C:\Users\John\Desktop\CSE445 Workspace\CSE445HW2\CSE445HW2\Hotel Supplier Unit Tests\obj\Debug\Hotel Supplier Unit Tests.dll
+C:\Users\John\Desktop\CSE445 Workspace\CSE445HW2\CSE445HW2\Hotel Supplier Unit Tests\obj\Debug\Hotel Supplier Unit Tests.pdb
