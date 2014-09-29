@@ -4,3 +4,6 @@ c:\users\nikita\documents\visual studio 2013\Projects\Encryption\Encryption\bin\
 c:\users\nikita\documents\visual studio 2013\Projects\Encryption\Encryption\obj\Debug\Encryption.exe
 c:\users\nikita\documents\visual studio 2013\Projects\Encryption\Encryption\obj\Debug\Encryption.pdb
 c:\users\nikita\documents\visual studio 2013\Projects\Encryption\Encryption\bin\Debug\Encryption.exe.config
+C:\Users\Nikita\Desktop\Gittest\Encryption\Encryption\bin\Debug\Encryption.exe.config
+C:\Users\Nikita\Desktop\Gittest\Encryption\Encryption\obj\Debug\Encryption.exe
+C:\Users\Nikita\Desktop\Gittest\Encryption\Encryption\obj\Debug\Encryption.pdb
