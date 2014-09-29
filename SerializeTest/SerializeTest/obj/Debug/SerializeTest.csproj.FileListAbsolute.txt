@@ -1,0 +1,6 @@
+C:\Users\Ryan\Google Drive\CSE 445\CSE445HW2\CSE445HW2\SerializeTest\SerializeTest\bin\Debug\SerializeTest.exe.config
+C:\Users\Ryan\Google Drive\CSE 445\CSE445HW2\CSE445HW2\SerializeTest\SerializeTest\obj\Debug\SerializeTest.csprojResolveAssemblyReference.cache
+C:\Users\Ryan\Google Drive\CSE 445\CSE445HW2\CSE445HW2\SerializeTest\SerializeTest\bin\Debug\SerializeTest.exe
+C:\Users\Ryan\Google Drive\CSE 445\CSE445HW2\CSE445HW2\SerializeTest\SerializeTest\bin\Debug\SerializeTest.pdb
+C:\Users\Ryan\Google Drive\CSE 445\CSE445HW2\CSE445HW2\SerializeTest\SerializeTest\obj\Debug\SerializeTest.exe
+C:\Users\Ryan\Google Drive\CSE 445\CSE445HW2\CSE445HW2\SerializeTest\SerializeTest\obj\Debug\SerializeTest.pdb
