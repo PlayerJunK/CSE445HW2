@@ -15,14 +15,14 @@ namespace CSE445HW2
         }
         //Establish a reference for the lock. Scope of lock will be limited to the methods inside this class.
         private System.Object myLock = new System.Object();
-        private cell[] orderBuffer = new cell[3];
+        private cell[] orderBuffer = new cell[BUFFERSIZE];
         int bufferCapacity;
         const int BUFFERSIZE = 3;
      
         public MultiCellBuffer()
         {
             bufferCapacity = 0;
-            for (int i = 0; i < 3; i++)
+            for (int i = 0; i < BUFFERSIZE; i++)
             {
                 orderBuffer[i].id = -1;
                 orderBuffer[i].Order = null;
@@ -33,8 +33,7 @@ namespace CSE445HW2
         the thread will wait until an order has been removed and is notified (PulseAll).*/
         public void addObjectwithID(int id, Object o)
         {
-            lock (myLock)
-            {
+            
                 while (bufferCapacity >= BUFFERSIZE)
                 {
                     try
@@ -53,7 +52,7 @@ namespace CSE445HW2
                 }
                 bufferCapacity++;  
                 Monitor.PulseAll(this);
-            }
+           
         }
 
         /*Lock the method so only one thread will be able to access. If there are no orders in the buffer,
