@@ -13,9 +13,7 @@ namespace CSE445HW2
             public int id;
             public Object Order;
         }
-        //Establish a reference for the lock. Scope of lock will be limited to the methods inside this class.
-        private Object myLock;
-
+ 
         private cell[] orderBuffer;
         int bufferCapacity;
         const int BUFFERSIZE = 3;
@@ -23,7 +21,6 @@ namespace CSE445HW2
         public MultiCellBuffer()
         {
             orderBuffer = new cell[BUFFERSIZE];
-            myLock = new Object();
             bufferCapacity = 0;
             for (int i = 0; i < BUFFERSIZE; i++)
             {
@@ -37,29 +34,29 @@ namespace CSE445HW2
         public void addObjectwithID(int id, Object o)
         {
 
-             
-                while (bufferCapacity >= BUFFERSIZE)
+            Monitor.Enter(this);
+            while (bufferCapacity >= BUFFERSIZE)
+            {
+                try
                 {
-                    try
-                    {
-                        Monitor.Wait(this);
-                    }
-                    catch { }
+                    Monitor.Wait(this);
                 }
-                Monitor.Enter(this);
-                for (int i = 0; i < BUFFERSIZE; i++)
+                catch { }
+            }
+               
+            for (int i = 0; i < BUFFERSIZE; i++)
+            {
+                if (orderBuffer[i].Order == null)
                 {
-                    if (orderBuffer[i].Order == null)
-                    {
-                        orderBuffer[i].id = id;
-                        orderBuffer[i].Order = o;
-                        bufferCapacity++;
-                        break;
-                    }
+                    orderBuffer[i].id = id;
+                    orderBuffer[i].Order = o;
+                    bufferCapacity++;
+                    break;
                 }
-                Monitor.PulseAll(this);
+            }
+            Monitor.PulseAll(this);
 
-                Monitor.Exit(this);
+            Monitor.Exit(this);
             
         }
 
@@ -68,31 +65,31 @@ namespace CSE445HW2
         public Object getObjectwithID(int id)
         {
             Object result = null;
-               
-                while (bufferCapacity <= 0)
+            Monitor.Enter(this);
+            while (bufferCapacity <= 0)
+            {
+                try
                 {
-                    try
-                    {
-                        Monitor.Wait(this);
-                    }
-                    catch { }
+                    Monitor.Wait(this);
                 }
-                Monitor.Enter(this);
-                for (int i = 0; i < BUFFERSIZE; i++)
+                catch { }
+            }
+                
+            for (int i = 0; i < BUFFERSIZE; i++)
+            {
+                if (orderBuffer[i].id == id)
                 {
-                    if (orderBuffer[i].id == id)
-                    {
-                        result = orderBuffer[i].Order;
-                        bufferCapacity--;
-                        orderBuffer[i].id = -1;
-                        orderBuffer[i].Order = null;
-                        break;
-                    }
+                    result = orderBuffer[i].Order;
+                    bufferCapacity--;
+                    orderBuffer[i].id = -1;
+                    orderBuffer[i].Order = null;
+                    break;
                 }
-                Monitor.PulseAll(this);
+            }
+            Monitor.PulseAll(this);
 
-                Monitor.Exit(this);
-                return result;
+            Monitor.Exit(this);
+            return result;
             
         }
 
