@@ -12,8 +12,8 @@ namespace CSE445HW2
         private static MultiCellBuffer unProcessedOrders = new MultiCellBuffer();
 
         //definiton event that will be triggered if a processed order is added.
-        private static delegate void ProcessedOrderAddedEvent(int destinationTravelAgencyID);
-        private static delegate void UnProcessedOrderAdded(int destinationHotelSupplierID);
+        private delegate void ProcessedOrderAddedEvent(int destinationTravelAgencyID);
+        private delegate void UnProcessedOrderAdded(int destinationHotelSupplierID);
 
         //create actual event objects that will be triggered if a processed or unprocessed order has been added
         private static event ProcessedOrderAddedEvent signalThatAnOrderHasBeenProcessed;

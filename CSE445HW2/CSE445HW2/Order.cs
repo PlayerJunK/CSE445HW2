@@ -6,19 +6,23 @@ using System.Threading.Tasks;
 
 namespace CSE445HW2
 {
-    [DataC]
+    
+
     public class Order
     {
         int pricePerRoom;
-        long creditCardNumber;
+        int creditCardNumber;
         int numRooms;
         int hotelSupplierID;
         int travelAgencyID;
 
 
+
         Boolean validOrder;
 
-        public Order(int travelAgencyID, int hotelSupplierID, int numRooms, int pricePerRoom, long creditCardNumber)
+
+
+        public Order(int travelAgencyID, int hotelSupplierID, int numRooms, int pricePerRoom, int creditCardNumber)
         {
             this.creditCardNumber = creditCardNumber;
             this.travelAgencyID = travelAgencyID;
@@ -28,15 +32,7 @@ namespace CSE445HW2
             validOrder = false;
         }
 
-        public Boolean isValidOrder()
-        {
-            return validOrder;
-        }
-
-        public void setValidOrder(Boolean validOrder)
-        {
-            this.validOrder = validOrder;
-        }
+        private Order() { }
 
         public override string ToString()
         {
@@ -83,11 +79,19 @@ namespace CSE445HW2
             set { travelAgencyID = value; }
         }
 
-        public long CreditCardNumber
+        public int CreditCardNumber
         {
             get { return creditCardNumber; }
             set { creditCardNumber = value; }
         }
+
+        public Boolean ValidOrder
+        {
+            get { return validOrder; }
+            set { validOrder = value; }
+        }
+
+        
 
     }
 }

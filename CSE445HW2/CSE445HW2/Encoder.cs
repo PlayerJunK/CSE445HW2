@@ -4,26 +4,56 @@ using System.Linq;
 using System.Text;
 using System.Xml.Serialization;
 using System.IO;
+using CSE445HW2.edu.asu.eas.venus;
+using System.Security.Cryptography;
 
-namespace Encryption
+namespace CSE445HW2
 {
     class Encoder
     {
-        edu.asu.eas.venus.Service service1 = new edu.asu.eas.venus.Service();
+        static Service service1 = new Service();
 
-        
-        public string Encrypt(Object order)
+        private const string KEY = "ABCDEFGHIJKLMNOP";
+        public static string Encrypt(Order order)
         {
             StringWriter writer = new StringWriter();
-            XmlSerializer serializer = new XmlSerializer(order.GetType());
+            XmlSerializer serializer = new XmlSerializer(typeof(Order));
+            Order orderToDecrypt = order;
             using (writer)
             {
                 serializer.Serialize(writer, order);
 
             }
-            Console.WriteLine(writer);
-            string encryptedOrder = service1.Encrypt(writer.ToString());
+            string nonEncryptedOrder = writer.ToString();
+            string encryptedOrder =encryptString(nonEncryptedOrder, KEY);
             return encryptedOrder;
         }
+
+
+        //courtesy of the extended chicken farm example from class
+        public static string encryptString(String input, String key)
+        {
+            byte[] inputArray = UTF8Encoding.UTF8.GetBytes(input);
+            String result = "";
+            try
+            {
+                TripleDESCryptoServiceProvider tripleDES = new TripleDESCryptoServiceProvider();
+                tripleDES.Key = UTF8Encoding.UTF8.GetBytes(key);
+                tripleDES.Mode = CipherMode.ECB;
+                tripleDES.Padding = PaddingMode.PKCS7;
+                ICryptoTransform cTransform = tripleDES.CreateEncryptor();
+                byte[] resultArray = cTransform.TransformFinalBlock(inputArray, 0, inputArray.Length);
+                tripleDES.Clear();
+                result = Convert.ToBase64String(resultArray, 0, resultArray.Length);
+            }
+            catch (CryptographicException e)
+            {
+                Console.WriteLine(e.ToString());
+            }
+            return result;
+        }
+
+
+
     }
 }

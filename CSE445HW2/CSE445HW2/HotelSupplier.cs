@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Threading;
 
@@ -90,7 +89,7 @@ namespace CSE445HW2
 
         
         //price calculation is done here.  Any improvements to the price calculation function
-        //will be put here.
+        //will be put here.ti
         private int getNewPrice()
         {
             return numGenerator.Next(MIN_PRICE, MAX_PRICE);
@@ -107,7 +106,7 @@ namespace CSE445HW2
                 string encryptedOrderToProcess = OrderProcessing.getUnProcessedOrder(this.supplierID);
 
                 //decrypt the string and assign it to an Order Object
-                Order newOrderToProcess = Decoder.decodeOrder(encryptedOrderToProcess);
+                Order newOrderToProcess = Decoder.Decrypt(encryptedOrderToProcess);
 
                 //validate the order
                 Boolean orderIsValid = validateOrder(newOrderToProcess);
@@ -116,14 +115,14 @@ namespace CSE445HW2
                 if (orderIsValid)
                 {
                     //set order as a valid order
-                    newOrderToProcess.setValidOrder(true);
+                    newOrderToProcess.ValidOrder = true;
                 }
 
                 //create new thread and send to order processed as processed order
                 //this occurs regardless of whether or not the order was validated
 
                 //this thread is just creating a new thread to run the method after the =>
-                Thread threadToProcessOrder = new Thread(() => OrderProcessing.addProcessedOrder(this.supplierID, Encoder.encodeOrder(newOrderToProcess)));
+                Thread threadToProcessOrder = new Thread(() => OrderProcessing.addProcessedOrder(this.supplierID, Encoder.Encrypt(newOrderToProcess)));
 
                 //start thread
                 threadToProcessOrder.Start();
@@ -136,10 +135,9 @@ namespace CSE445HW2
         private Boolean validateOrder(Order orderToValidate)
         {
             //check with the bank object to see if the credit card is registered
-            //return Bank.validateCreditCard(orderToValidate.CreditCard);
+            return Bank.validateCreditCard(orderToValidate.CreditCardNumber);
 
 
-            return true;
         }
     }
 }
