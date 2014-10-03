@@ -38,7 +38,7 @@ namespace CSE445HW2
 
             //read number of agencies from keyboard
             //loop until an interger larger than 0 is inputted
-            while (NUM_AGENCIES < 1)
+            while (NUM_AGENCIES < NUM_SUPPLIERS)
             {
                 //prompt user
                 Console.Write("Number of Agencies: ");
@@ -47,9 +47,9 @@ namespace CSE445HW2
                 NUM_AGENCIES = readIntFromConsole();
 
                 //raise error for invalid input
-                if (NUM_AGENCIES < 1)
+                if (NUM_AGENCIES < NUM_SUPPLIERS)
                 {
-                    Console.WriteLine("Input must be greater than 0");
+                    Console.WriteLine("The number of Travel Agencies must be >= the number of Hotel Suppliers.");
                 }
             }
 
