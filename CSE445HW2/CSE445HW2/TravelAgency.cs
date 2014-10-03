@@ -12,6 +12,7 @@ namespace CSE445HW2
         const int MULTIPLIER_MIN = 1;
         const int MULTIPLIER_MAX = 3;
         static Random numGenerator = new Random();
+        static int number;
 
 
         int agencyID;
@@ -24,6 +25,7 @@ namespace CSE445HW2
             //Without this, the travel agency would never know when their order had been reviewed
             //the travel agency has to confirm the order when it is returned.
             OrderProcessing.callMethodWhenAnOrderIsProcessed(processedOrderAddedToBuffer);
+            getCreditCardNumber(this.agencyID);
 
         }
 
@@ -41,7 +43,7 @@ namespace CSE445HW2
             //just for testing purposes
             if (desiredNumRoomsToBuy != 0)
             {
-                Order newOrder = new Order(this.agencyID, supplierID, desiredNumRoomsToBuy, newPrice, getCreditCardNumber());
+                Order newOrder = new Order(this.agencyID, supplierID, desiredNumRoomsToBuy, newPrice, number);
 
 
                 //place the new order
@@ -149,12 +151,13 @@ namespace CSE445HW2
 
         //uses the bank service to register for a credit card number and send it.
         //NOT YET IMPLMENTED
-        private int getCreditCardNumber()
+        private void getCreditCardNumber(int id)
         {
-
-
-
-            return Bank.applyforCreditCard();
+            
+            number = Bank.applyforCreditCard();
+            Console.Write("Travel Agency # " +id);
+            Console.WriteLine("      Card Number: " + number);
+            //return number;
 
         }
 

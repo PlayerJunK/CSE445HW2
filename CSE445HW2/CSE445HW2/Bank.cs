@@ -7,13 +7,13 @@ namespace CSE445HW2
 {
     class Bank
     {
-        //ServiceReference1.Service1Client service2 = new ServiceReference1.Service1Client();
+        static ServiceReference1.Service1Client service2 = new ServiceReference1.Service1Client();
         public static int applyforCreditCard()
         {
             
-            //int creditcardnumber = (int)service2.applyCreditCard();
-            //return creditcardnumber;
-            return 0;
+            int creditcardnumber = (int)service2.applyCreditCard();
+            return creditcardnumber;
+            //return 0;
         }
 
 
