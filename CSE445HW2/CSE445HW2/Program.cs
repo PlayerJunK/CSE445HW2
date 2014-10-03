@@ -14,8 +14,10 @@ namespace CSE445HW2
         {
             
             //instantiate these to negative numbers to know if they are valid or not
-            int NUM_SUPPLIERS = -1;
-            int NUM_AGENCIES = -1;
+            
+            //to allow for user to input, change these to -1;
+            int NUM_SUPPLIERS = 3;
+            int NUM_AGENCIES = 5;
 
             //num agenecies and num suppliers must be positive integers
 
@@ -23,7 +25,7 @@ namespace CSE445HW2
             while (NUM_SUPPLIERS < 1)
             {
                 //prompt the user
-                Console.Write("Number of Hotel Suppliers: ");
+                Console.Write("Number of Hotel Suppliers [eg. 3]: ");
 
                 //assign input from console to variable
                 NUM_SUPPLIERS = readIntFromConsole();
@@ -41,7 +43,7 @@ namespace CSE445HW2
             while (NUM_AGENCIES < NUM_SUPPLIERS)
             {
                 //prompt user
-                Console.Write("Number of Agencies: ");
+                Console.Write("Number of Agencies [eg. 5]: ");
 
                 //read int
                 NUM_AGENCIES = readIntFromConsole();
@@ -52,6 +54,16 @@ namespace CSE445HW2
                     Console.WriteLine("The number of Travel Agencies must be >= the number of Hotel Suppliers.");
                 }
             }
+
+
+            //Print the number of agencies and hotel suppliers;
+            Console.WriteLine("There are {0} Hotel Suppliers and {1} Travel Agencies", NUM_SUPPLIERS, NUM_AGENCIES);
+
+            //Prompt the user to press enter begin the process.
+            Console.WriteLine("Press ENTER to begin the process.");
+
+            //read a line to begin the process.
+            Console.ReadLine();
 
             //set up TravelAgency Objects
             ArrayList travelAgencyObjects = new ArrayList();
@@ -95,10 +107,16 @@ namespace CSE445HW2
                 ((Thread)hotelSupplierThreads[i]).Join();
             }
 
+            //wait for all running threads to finish executing
+            Thread.Sleep(500);
+
+            Console.Write("Operation complete.  Press ENTER to exit...");
             Console.ReadLine();
 
         }
 
+        //End main
+        ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
         //Helper method to read an integer from console

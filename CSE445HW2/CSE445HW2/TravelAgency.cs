@@ -14,10 +14,14 @@ namespace CSE445HW2
         static Random numGenerator = new Random();
 
 
+        int creditCardNumber;
         int agencyID;
         public TravelAgency(int agencyID)
         {
             this.agencyID = agencyID;
+            
+            //apply for a credit card number
+            creditCardNumber = Bank.applyforCreditCard();
 
             //subscribe the travel agency to the OrderProcessing so it can be informed
             //when an order has been reviewed by the hotel supplier
@@ -151,10 +155,7 @@ namespace CSE445HW2
         //NOT YET IMPLMENTED
         private int getCreditCardNumber()
         {
-
-
-
-            return Bank.applyforCreditCard();
+            return creditCardNumber;
 
         }
 

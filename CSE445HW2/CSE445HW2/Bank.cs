@@ -3,28 +3,26 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
+using CSE445HW2.ServiceReference1;
 namespace CSE445HW2
 {
     class Bank
     {
-        //ServiceReference1.Service1Client service2 = new ServiceReference1.Service1Client();
+        static Service1Client bankService = new Service1Client();
         public static int applyforCreditCard()
         {
             
-            //int creditcardnumber = (int)service2.applyCreditCard();
-            //return creditcardnumber;
-            return 0;
+            int creditcardnumber = (int)bankService.applyCreditCard();
+
+            return creditcardnumber;
         }
 
 
-        public static Boolean validateCreditCard(int cardNumber)
+        public static bool validateCreditCard(int cardNumber)
         {
             int card = cardNumber;
-            //string isvalid = service2.validateCreditCard(card.ToString());
 
-            //if (isvalid.Equals("Valid Card Number"))
-            
-            return true;
+            return bankService.validateCreditCard(card);
         }
     }
 }
